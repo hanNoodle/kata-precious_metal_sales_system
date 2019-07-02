@@ -2,8 +2,6 @@ package com.coding.sales.entiy;
 
 import java.math.BigDecimal;
 
-import com.sun.xml.internal.ws.util.StringUtils;
-
 public class OrderItem {
 	
 	private Product product;
@@ -38,6 +36,16 @@ public class OrderItem {
 			String discount = product.getIsDiscountProduct().split("\\|")[1];
 			productTotalPrice = (new BigDecimal(1).subtract(new BigDecimal(discount))).multiply(getProductTotalPrice());
 		}
+		
+		if (!"".equals(product.getActivityId())) {
+			if ("003002".equals(product.getProductId())) {
+				if (amount==3) {
+					productTotalPrice = product.getPrice().multiply(new BigDecimal("0.5"));
+				} else if (amount>3) {
+					productTotalPrice = product.getPrice();
+				}
+			}
+		}
 		return productTotalPrice;
 	}
 	
@@ -46,6 +54,16 @@ public class OrderItem {
 		if (!"".equals(product.getIsDiscountProduct()) && !"0".equals(product.getIsDiscountProduct())) {
 			String discount = product.getIsDiscountProduct().split("\\|")[1];
 			productTotalPrice = new BigDecimal(discount).multiply(getProductTotalPrice());
+		}
+		
+		if (!"".equals(product.getActivityId())) {
+			if ("003002".equals(product.getProductId())) {
+				if (amount==3) {
+					productTotalPrice = product.getPrice().multiply(new BigDecimal("2.5"));
+				} else if (amount>3) {
+					productTotalPrice = product.getPrice().multiply(new BigDecimal(amount).subtract(new BigDecimal("1")));
+				}
+			}
 		}
 		return productTotalPrice;
 	}
