@@ -8,16 +8,22 @@ public class Product {
 	private String productName;
 	private BigDecimal price;
 	private String activityId;
+	private String isDiscountProduct;
 	
-	public Product(String productId, String productName, BigDecimal price) {
+	public Product(String productId, String productName, BigDecimal price,
+			String activityId, String isDiscountProduct) {
+		super();
 		this.productId = productId;
 		this.productName = productName;
 		this.price = price;
+		this.activityId = activityId;
+		this.isDiscountProduct = isDiscountProduct;
 	}
-	
+
 	public String getProductId() {
 		return productId;
 	}
+	
 	public void setProductId(String productId) {
 		this.productId = productId;
 	}
@@ -41,4 +47,13 @@ public class Product {
 	public void setActivityId(String activityId) {
 		this.activityId = activityId;
 	}
+
+	public String getIsDiscountProduct() {
+		return isDiscountProduct;
+	}
+
+	public void setIsDiscountProduct(String isDiscountProduct) {
+		this.isDiscountProduct = isDiscountProduct;
+	}
+	
 }
