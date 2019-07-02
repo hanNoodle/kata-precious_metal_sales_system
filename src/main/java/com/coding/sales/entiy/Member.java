@@ -1,12 +1,15 @@
 package com.coding.sales.entiy;
 
+import java.math.BigDecimal;
+
 public class Member {
 	private String memberName;
 	private String level;
 	private String memberId;
-	private int score;
+	private BigDecimal score;
 	
-	public Member(String memberName, String level, String memberId, int score) {
+	public Member(String memberName, String level, String memberId,
+			BigDecimal score) {
 		super();
 		this.memberName = memberName;
 		this.level = level;
@@ -31,10 +34,24 @@ public class Member {
 	public void setMemberId(String memberId) {
 		this.memberId = memberId;
 	}
-	public int getScore() {
+	public BigDecimal getScore() {
 		return score;
 	}
-	public void setScore(int score) {
+	public void setScore(BigDecimal score) {
 		this.score = score;
 	}
+	
+	public BigDecimal addScore(BigDecimal increasedScore) {
+		if ("普卡".equals(level)) {
+			score = score.add(increasedScore); 
+		} else if ("金卡".equals(level)) {
+			score = BigDecimal.valueOf(1.5).multiply(increasedScore); 
+		} else if ("白金卡".equals(level)) {
+			score = BigDecimal.valueOf(1.8).multiply(increasedScore); ;
+		} else if ("钻石卡".equals(level)) {
+			score = BigDecimal.valueOf(2).multiply(increasedScore); ;
+		}
+		return score;
+	}
+	
 }

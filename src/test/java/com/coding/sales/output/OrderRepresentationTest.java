@@ -44,10 +44,10 @@ public class OrderRepresentationTest {
     	activityMap.put("003", new Activity("003", "每满1000元减10"));
     	activityMap.put("004", new Activity("004", "第3件半价（买3件及以上，其中1件半价）"));
     	activityMap.put("005", new Activity("005", "满3送1（买4件及以上，其中1件免费）"));
-    	memberMap.put("6236609999", new Member("马丁", "普卡", "6236609999", 9860));
-    	memberMap.put("6630009999", new Member("王立", "金卡", "6630009999", 48860));
-    	memberMap.put("8230009999", new Member("李想", "白金卡", "8230009999", 98860));
-    	memberMap.put("9230009999", new Member("张三", "钻石卡", "9230009999", 198860));
+    	memberMap.put("6236609999", new Member("马丁", "普卡", "6236609999", BigDecimal.valueOf(9860)));
+    	memberMap.put("6630009999", new Member("王立", "金卡", "6630009999", BigDecimal.valueOf(48860)));
+    	memberMap.put("8230009999", new Member("李想", "白金卡", "8230009999", BigDecimal.valueOf(98860)));
+    	memberMap.put("9230009999", new Member("张三", "钻石卡", "9230009999", BigDecimal.valueOf(198860)));
     	productMap.put("001001", new Product("001001", "世园会五十国钱币册", BigDecimal.valueOf(998.00),"","0"));
     	productMap.put("001002", new Product("001002", "2019北京世园会纪念银章大全40g", BigDecimal.valueOf(1380.00),"","1"));
     	productMap.put("003001", new Product("003001", "招财进宝", BigDecimal.valueOf(1580.00),"","1"));
@@ -89,6 +89,9 @@ public class OrderRepresentationTest {
         Assert.assertEquals(BigDecimal.valueOf(998.00), order.getTotalPrice());
         Assert.assertEquals(BigDecimal.valueOf(998.00), order.getReceivablePrice());
         Assert.assertEquals(BigDecimal.valueOf(0), order.getDiscountPrice());
+        
+        Member member= (Member)memberMap.get("6236609999");
+        Assert.assertEquals(BigDecimal.valueOf(10858.0), member.addScore(order.getReceivablePrice()));
     }
     
     private List<String> getDiscountCards() {
