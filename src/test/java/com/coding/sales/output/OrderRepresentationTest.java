@@ -91,7 +91,27 @@ public class OrderRepresentationTest {
         Assert.assertEquals(BigDecimal.valueOf(0), order.getDiscountPrice());
         
         Member member= (Member)memberMap.get("6236609999");
-        Assert.assertEquals(BigDecimal.valueOf(10858.0), member.addScore(order.getReceivablePrice()));
+        Assert.assertEquals(new BigDecimal("10858.0"), member.addScore(order.getReceivablePrice()));
+    }
+    
+    @Test
+    public void should_print_order_when_buy_two_001001() {
+    	String absolutePath = getResourceFilePath("sample_command.json");
+        String commandString = FileUtils.readFromFile(absolutePath);
+        OrderCommand command = OrderCommand.from(commandString);
+        
+        Product product = (Product)productMap.get("001001");
+        OrderItem orderItem = new OrderItem(product,2);
+        List<OrderItem> orderItemList = new ArrayList<OrderItem>();
+        orderItemList.add(orderItem);
+        Order order = new Order(command.getOrderId(), orderItemList);
+        
+        Assert.assertEquals(BigDecimal.valueOf(1996.00), order.getTotalPrice());
+        Assert.assertEquals(BigDecimal.valueOf(1996.00), order.getReceivablePrice());
+        Assert.assertEquals(BigDecimal.valueOf(0), order.getDiscountPrice());
+        
+        Member member= (Member)memberMap.get("6630009999");
+        Assert.assertEquals(new BigDecimal("51854.00"), member.addScore(order.getReceivablePrice()));
     }
     
     private List<String> getDiscountCards() {

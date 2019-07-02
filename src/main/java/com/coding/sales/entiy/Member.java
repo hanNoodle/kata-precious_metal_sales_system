@@ -45,11 +45,11 @@ public class Member {
 		if ("普卡".equals(level)) {
 			score = score.add(increasedScore); 
 		} else if ("金卡".equals(level)) {
-			score = BigDecimal.valueOf(1.5).multiply(increasedScore); 
+			score = BigDecimal.valueOf(1.5).multiply(increasedScore).add(score); 
 		} else if ("白金卡".equals(level)) {
-			score = BigDecimal.valueOf(1.8).multiply(increasedScore); ;
+			score = BigDecimal.valueOf(1.8).multiply(increasedScore).add(score);
 		} else if ("钻石卡".equals(level)) {
-			score = BigDecimal.valueOf(2).multiply(increasedScore); ;
+			score = BigDecimal.valueOf(2).multiply(increasedScore).add(score);
 		}
 		return score;
 	}
