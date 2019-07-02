@@ -5,7 +5,9 @@ import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -28,7 +30,7 @@ public class OrderRepresentation {
     private List<PaymentRepresentation> payments;
     private List<String> discountCards;
     private static final DecimalFormat MONEY_FORMAT = new DecimalFormat("0.00");
-
+    
     /**
      * @param orderId               订单号
      * @param createTime            订单创建时间

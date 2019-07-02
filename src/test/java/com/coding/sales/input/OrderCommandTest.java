@@ -21,17 +21,17 @@ public class OrderCommandTest {
         assertEquals("0000001", command.getOrderId());
         assertEquals("2019-07-02 15:00:00", command.getCreateTime());
 
-        assertEquals(4, command.getItems().size());
-        assertEquals("001002", command.getItems().get(1).product);
-        assertEquals(3, command.getItems().get(1).amount.intValue());
+        assertEquals(1, command.getItems().size());
+        assertEquals("001001", command.getItems().get(0).product);
+        assertEquals(1, command.getItems().get(0).amount.intValue());
 
 
         assertEquals(1, command.getPayments().size());
         assertEquals("余额支付", command.getPayments().get(0).type);
-        assertTrue(command.getPayments().get(0).amount.compareTo(BigDecimal.valueOf(9860.00)) == 0);
+        assertTrue(command.getPayments().get(0).amount.compareTo(BigDecimal.valueOf(998.00)) == 0);
 
         assertEquals(1, command.getDiscounts().size());
-        assertEquals("9折券", command.getDiscounts().get(0));
+        assertEquals("", command.getDiscounts().get(0));
 
     }
 
