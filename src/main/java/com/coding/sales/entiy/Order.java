@@ -26,7 +26,7 @@ public class Order {
 	}
 	
 	public BigDecimal getTotalPrice() {
-		BigDecimal totalPrice = new BigDecimal("0");
+		BigDecimal totalPrice = new BigDecimal("0.00");
 		for (OrderItem orderItem:orderItemList) {
 			totalPrice=totalPrice.add(orderItem.getProductTotalPrice());
 		}
@@ -34,7 +34,7 @@ public class Order {
 	}
 	
 	public BigDecimal getDiscountPrice() {
-		BigDecimal discountPrice = new BigDecimal("0");
+		BigDecimal discountPrice = new BigDecimal("0.00");
 		for (OrderItem orderItem:orderItemList) {
 			discountPrice = discountPrice.add(orderItem.getProductDiscountPrice());
 		}
@@ -42,7 +42,7 @@ public class Order {
 	}
 	
 	public BigDecimal getReceivablePrice() {
-		BigDecimal receivablePrice = new BigDecimal("0");
+		BigDecimal receivablePrice = new BigDecimal("0.00");
 		for (OrderItem orderItem:orderItemList) {
 			receivablePrice = receivablePrice.add(orderItem.getProductReceivablePrice());
 		}

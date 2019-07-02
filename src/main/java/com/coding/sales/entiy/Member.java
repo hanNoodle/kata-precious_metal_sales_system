@@ -42,16 +42,17 @@ public class Member {
 	}
 	
 	public BigDecimal addScore(BigDecimal increasedScore) {
+		BigDecimal newScore = new BigDecimal("0.00");
 		if ("普卡".equals(level)) {
-			score = score.add(increasedScore); 
+			newScore = score.add(increasedScore); 
 		} else if ("金卡".equals(level)) {
-			score = BigDecimal.valueOf(1.5).multiply(increasedScore).add(score); 
+			newScore = new BigDecimal("1.5").multiply(increasedScore).add(score).setScale(2); 
 		} else if ("白金卡".equals(level)) {
-			score = BigDecimal.valueOf(1.8).multiply(increasedScore).add(score);
+			newScore = new BigDecimal("1.8").multiply(increasedScore).add(score).setScale(2);
 		} else if ("钻石卡".equals(level)) {
-			score = BigDecimal.valueOf(2).multiply(increasedScore).add(score);
+			newScore = new BigDecimal("2").multiply(increasedScore).add(score).setScale(2);
 		}
-		return score;
+		return newScore;
 	}
 	
 }

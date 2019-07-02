@@ -49,12 +49,12 @@ public class OrderRepresentationTest {
     	memberMap.put("8230009999", new Member("李想", "白金卡", "8230009999", BigDecimal.valueOf(98860)));
     	memberMap.put("9230009999", new Member("张三", "钻石卡", "9230009999", BigDecimal.valueOf(198860)));
     	productMap.put("001001", new Product("001001", "世园会五十国钱币册", BigDecimal.valueOf(998.00),"","0"));
-    	productMap.put("001002", new Product("001002", "2019北京世园会纪念银章大全40g", BigDecimal.valueOf(1380.00),"","1"));
-    	productMap.put("003001", new Product("003001", "招财进宝", BigDecimal.valueOf(1580.00),"","1"));
+    	productMap.put("001002", new Product("001002", "2019北京世园会纪念银章大全40g", BigDecimal.valueOf(1380.00),"","1|0.9"));
+    	productMap.put("003001", new Product("003001", "招财进宝", BigDecimal.valueOf(1580.00),"","1|0.95"));
     	productMap.put("003002", new Product("003002", "水晶之恋", BigDecimal.valueOf(980.00),"004|005",""));
     	productMap.put("002002", new Product("002002", "中国经典钱币套装", BigDecimal.valueOf(998.00),"002|003","0"));
-    	productMap.put("002001", new Product("002001", "守扩之羽比翼双飞4.8g", BigDecimal.valueOf(1080.00),"004|005","1"));
-    	productMap.put("002003", new Product("002003", "中国银象棋12g", BigDecimal.valueOf(698.00),"001|002|003","1"));
+    	productMap.put("002001", new Product("002001", "守扩之羽比翼双飞4.8g", BigDecimal.valueOf(1080.00),"004|005","1|0.95"));
+    	productMap.put("002003", new Product("002003", "中国银象棋12g", BigDecimal.valueOf(698.00),"001|002|003","1|0.9"));
     };
     
     
@@ -86,12 +86,12 @@ public class OrderRepresentationTest {
         orderItemList.add(orderItem);
         Order order = new Order(command.getOrderId(), orderItemList);
         
-        Assert.assertEquals(BigDecimal.valueOf(998.00), order.getTotalPrice());
-        Assert.assertEquals(BigDecimal.valueOf(998.00), order.getReceivablePrice());
-        Assert.assertEquals(BigDecimal.valueOf(0), order.getDiscountPrice());
+        Assert.assertEquals(new BigDecimal("998.00"), order.getTotalPrice());
+        Assert.assertEquals(new BigDecimal("998.00"), order.getReceivablePrice());
+        Assert.assertEquals(new BigDecimal("0.00"), order.getDiscountPrice());
         
         Member member= (Member)memberMap.get("6236609999");
-        Assert.assertEquals(new BigDecimal("10858.0"), member.addScore(order.getReceivablePrice()));
+        Assert.assertEquals(new BigDecimal("10858.00"), member.addScore(order.getReceivablePrice()));
     }
     
     @Test
@@ -106,12 +106,32 @@ public class OrderRepresentationTest {
         orderItemList.add(orderItem);
         Order order = new Order(command.getOrderId(), orderItemList);
         
-        Assert.assertEquals(BigDecimal.valueOf(1996.00), order.getTotalPrice());
-        Assert.assertEquals(BigDecimal.valueOf(1996.00), order.getReceivablePrice());
-        Assert.assertEquals(BigDecimal.valueOf(0), order.getDiscountPrice());
+        Assert.assertEquals(new BigDecimal("1996.00"), order.getTotalPrice());
+        Assert.assertEquals(new BigDecimal("1996.00"), order.getReceivablePrice());
+        Assert.assertEquals(new BigDecimal("0.00"), order.getDiscountPrice());
         
         Member member= (Member)memberMap.get("6630009999");
         Assert.assertEquals(new BigDecimal("51854.00"), member.addScore(order.getReceivablePrice()));
+    }
+    
+    @Test
+    public void should_print_order_when_buy_one_001002() {
+    	String absolutePath = getResourceFilePath("sample_command.json");
+        String commandString = FileUtils.readFromFile(absolutePath);
+        OrderCommand command = OrderCommand.from(commandString);
+        
+        Product product = (Product)productMap.get("001002");
+        OrderItem orderItem = new OrderItem(product,1);
+        List<OrderItem> orderItemList = new ArrayList<OrderItem>();
+        orderItemList.add(orderItem);
+        Order order = new Order(command.getOrderId(), orderItemList);
+        
+        Assert.assertEquals(new BigDecimal("1380.00"), order.getTotalPrice());
+        Assert.assertEquals(new BigDecimal("1242.00"), order.getReceivablePrice());
+        Assert.assertEquals(new BigDecimal("138.00"), order.getDiscountPrice());
+        
+        Member member= (Member)memberMap.get("6630009999");
+        Assert.assertEquals(new BigDecimal("50723.00"), member.addScore(order.getReceivablePrice()));
     }
     
     private List<String> getDiscountCards() {
